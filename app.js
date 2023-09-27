@@ -32,3 +32,9 @@ fnLenaInfoLog();
 // person.logInfo.bind(lena, 'sekretar', '8342342323423')();
 // person.logInfo.call(lena, 'sekretar', '8342342323423');
 person.logInfo.apply(lena, ['sekretar', '8342342323423']);
+
+const array1=  [1,2,4,6];
+function mathOp (m){
+console.log(array1.map((i)=>i/m));
+}
+mathOp(32);
