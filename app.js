@@ -38,3 +38,25 @@ function mathOp (m){
 console.log(array1.map((i)=>i/m));
 }
 mathOp(32);
+Array.prototype.multBy = function(n){
+    console.log('multBy',this.map((i)=>i/n));
+}
+array1.multBy(11);
+function urlGenerator(domain){
+    return function(url){
+        return `${url}.${domain}`
+    }
+}
+const comUrl=urlGenerator('com');
+console.log(comUrl('pizduk'));
+
+function bind(context, fn) {
+    return function (...args){
+        fn.apply(context, args)
+    }
+}
+function logPerson(){
+    console.log(`Person: ${this.name}, ${this.age}, ${this.job}`);
+}
+const person1={name: 'Михаил', age: 22, job: 'Frontend'}
+bind(person1, logPerson)();
