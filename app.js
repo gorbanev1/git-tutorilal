@@ -42,6 +42,7 @@ Array.prototype.multBy = function(n){
     console.log('multBy',this.map((i)=>i/n));
 }
 array1.multBy(11);
+
 function urlGenerator(domain){
     return function(url){
         return `${url}.${domain}`
@@ -51,8 +52,8 @@ const comUrl=urlGenerator('com');
 console.log(comUrl('pizduk'));
 
 function bind(context, fn) {
-    return function (...args){
-        fn.apply(context, args)
+    return function (){
+        fn.bind(context)()
     }
 }
 function logPerson(){
@@ -60,3 +61,102 @@ function logPerson(){
 }
 const person1={name: 'Михаил', age: 22, job: 'Frontend'}
 bind(person1, logPerson)();
+ const module={
+    x:42,
+    getX: function(){
+        return this.x;
+    }
+ };
+ const unboundGetX=console.log(module.getX());
+ const boundGetX=console.log(module.getX.bind(module)());
+
+ const unboundGetX2 = module.getX;
+console.log(unboundGetX2()); // The function gets invoked at the global scope
+// Expected output: undefined
+
+const boundGetX2 = unboundGetX2.bind(module);
+console.log(boundGetX2());
+// Expected output: 42
+
+// const myObject = {
+
+//     myMethod(items) {
+    
+//     console.log(this); // myObject
+    
+//     const callback = function ()  {
+    
+//     console.log(this); // myObject
+    
+//     };
+    
+//     items.forEach(callback);
+    
+//     }
+    
+//     };
+//     myObject.myMethod([1, 2, 3]);
+//     console.log('----------------------------');
+//     myObject.myMethod.bind(myObject.myMethod)([1, 2, 3]);
+
+const myObject = {
+
+    // a:23,
+    myMethod(items) {
+    
+    console.log(this); // myObject
+    
+    const callback = function()  {
+    
+    console.log(this); // myObject
+    
+    };
+    
+    items.forEach(callback);
+    
+    }
+    
+    };
+    
+    myObject.myMethod.bind(myObject.myMethod)([1, 2, 3]);
+   
+    // console.log('Request data....');
+    // setTimeout(()=>{
+    //     console.log('Preparing data...')
+
+    //     const backendData ={
+    //         server: "ebanserv",
+    //         port: 2000,
+
+    //     }
+    //     setTimeout(()=>{
+    //         backendData.modified=true;
+    //         console.log('Data received',backendData)
+    //     },4444)
+        
+    // },2000)
+
+    const p = new Promise(function(resolve, reject){
+        setTimeout(()=>{
+            console.log('Preparing data...')
+            const backendData={
+            server: "ebanserv",
+            port: 2000,
+            }
+            resolve(backendData);
+        },2000)
+    })
+    p.then((data)=>{
+        const p2 = new Promise((resolve, reject) =>{
+            setTimeout(()=>{
+                data.modified=true
+                resolve(data)
+            },1000)
+        })
+            p2.then(clientData=>{
+                console.log('Data received', clientData)
+            })
+        
+    }).then(clientData=>{console.log('Data received, clientData')
+    
+})
