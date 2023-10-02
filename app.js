@@ -143,20 +143,30 @@ const myObject = {
             server: "ebanserv",
             port: 2000,
             }
-            resolve(backendData);
+            reject(backendData);
         },2000)
     })
     p.then((data)=>{
-        const p2 = new Promise((resolve, reject) =>{
+        return new Promise((resolve, reject) =>{
             setTimeout(()=>{
                 data.modified=true
                 resolve(data)
             },1000)
         })
-            p2.then(clientData=>{
-                console.log('Data received', clientData)
-            })
-        
-    }).then(clientData=>{console.log('Data received, clientData')
-    
+    })
+    .then(clientData=>{
+        console.log('Data received', clientData);
+        clientData.fromPromise=true;
+        return clientData
+}).then(data=>{
+    console.log('Modified', data)
 })
+.catch(err=>console.error('Error:', err))
+.finally(()=>console.log('Finally'))
+
+const sleep=ms=>{
+    return new Promise(resolve=>{
+        setTimeout(() => resolve(), ms);
+    })
+}
+sleep(3).then(console.log('Afr 3'));
