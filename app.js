@@ -169,4 +169,7 @@ const sleep=ms=>{
         setTimeout(() => resolve(), ms);
     })
 }
-sleep(3).then(console.log('Afr 3'));
+sleep(3000).then(()=>console.log('Afr 3'));
+Promise.all([sleep(2000), sleep(3000)]).then(() =>{
+    console.log('All promises')
+})
