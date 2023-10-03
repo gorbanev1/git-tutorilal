@@ -173,3 +173,21 @@ sleep(3000).then(()=>console.log('Afr 3'));
 Promise.all([sleep(2000), sleep(3000)]).then(() =>{
     console.log('All promises')
 })
+
+function Calculator(a,b){
+    this.read=function(){
+    this.a=+prompt('a?');
+    this.b=+prompt('b?');
+    }
+    this.sum=function()
+    {return (this.a+this.b)};
+    this.mul=(a,b)=>a*b;
+}
+
+const calc = new Calculator()
+// let a=Number(prompt('a'));
+// let b=Number(prompt('b'));
+calc.read();
+console.log(calc.a);
+console.log(calc.b);
+console.log(calc.sum());
