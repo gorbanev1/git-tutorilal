@@ -6,6 +6,7 @@
 }
 const post= new Post('Росбанк',100);
 */
+/*
 function hello(){
     console.log('Hello', this)
 }
@@ -75,7 +76,7 @@ console.log(unboundGetX2()); // The function gets invoked at the global scope
 // Expected output: undefined
 
 const boundGetX2 = unboundGetX2.bind(module);
-console.log(boundGetX2());
+console.log(boundGetX2());*/
 // Expected output: 42
 
 // const myObject = {
@@ -98,7 +99,7 @@ console.log(boundGetX2());
 //     myObject.myMethod([1, 2, 3]);
 //     console.log('----------------------------');
 //     myObject.myMethod.bind(myObject.myMethod)([1, 2, 3]);
-
+/*
 const myObject = {
 
     // a:23,
@@ -185,9 +186,62 @@ function Calculator(a,b){
 }
 
 const calc = new Calculator()
-// let a=Number(prompt('a'));
-// let b=Number(prompt('b'));
-calc.read();
+
+// calc.read();
 console.log(calc.a);
 console.log(calc.b);
-console.log(calc.sum());
+console.log(calc.sum());*/
+
+const person3 = Object.create(
+    {
+        calculateAge(){
+
+            console.log('Age', new Date().getFullYear()-this.birthYear)
+        }
+    },
+    {
+    name: {
+        value: 'Chlenosos',
+        enumerable: true, 
+        writable: true,
+        configurable: true,
+    },
+    birthYear: {
+        value:1999,
+        enumerable: true,
+        writable: true,
+        configurable: false,
+    },
+    age:{
+        get(){
+            return new Date().getFullYear()-this.birthYear;
+        },
+        set(value){
+            document.body.style.background="green";            
+            console.log('Set age',value);
+            return value
+        }
+    }
+});
+person3.name='pizduk';
+person3.birthYear=1321;
+for (let key in person3){
+    if (person3.hasOwnProperty(key)){
+    console.log('Key ', key, person3[key]);
+}
+}
+// console.log(person3);
+
+const user1 ={
+    name: 'fsafsda',
+    surname: 'dfsfas',
+    get fullName(){
+        return `${this.name} ${this.surname}`;
+    },
+    set fullName(value){
+        [this.name, this.surname]= value.split(" ");
+    }
+};
+console.log(user1.fullName);
+user1.fullName='Soa kkkk';
+console.log(user1.fullName);
